@@ -22,12 +22,17 @@
             <td>@{{ category.ismenu }}</td>
             <td>@{{ category.ismenu }}</td>
             <td>
-                <a :href="'/admin/menu/create/'+category.id" class="btn btn-default btn-sm btn-icon icon-left">
+                <a :href="'/admin/categories/create/'+category.id" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-pencil"></i>
+                    添加内容
+                </a>
+
+                <a :href="'/admin/categories/create/'+category.id" class="btn btn-default btn-sm btn-icon icon-left">
                     <i class="entypo-pencil"></i>
                     添加子栏目
                 </a>
 
-                <a :href="'/admin/menu/'+category.id+'/edit'" class="btn btn-default btn-sm btn-icon icon-left">
+                <a :href="'/admin/categories/'+category.id+'/edit'" class="btn btn-default btn-sm btn-icon icon-left">
                     <i class="entypo-pencil"></i>
                     修改
                 </a>

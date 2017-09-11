@@ -4,7 +4,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -30,4 +30,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::get('/categories/create/{parentid}', 'CategoriesController@create')->name('categories.create');
     Route::post('/categories/store', 'CategoriesController@store')->name('categories.store');
     Route::post('/categories/delete', 'CategoriesController@delete')->name('categories.delete');
+    Route::get('/categories/{category}/edit', 'CategoriesController@edit')->name('categories.edit');
+    Route::patch('/categories/{id}', 'CategoriesController@update')->name('categories.update');
 });

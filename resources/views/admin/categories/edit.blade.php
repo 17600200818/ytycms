@@ -20,16 +20,21 @@
 
                 <div class="panel-body">
 
-                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.categories.store') }}" method="post">
+                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.categories.update', $category->id) }}" method="post">
 
                         {{csrf_field()}}
+                        {{ method_field('PATCH') }}
                         <div class="form-group">
                             <label for="field-1" class="col-sm-3 control-label">请选择模型</label>
 
                             <div class="col-sm-5">
                                 <select class="form-control" name="moduleid">
                                     @foreach($modules as $v)
-                                        <option value="{{$v['id']}}">{{$v['title']}}</option>
+                                        @if($category->moduleid == $v['id'])
+                                            <option value="{{$v['id']}}" selected>{{$v['title']}}</option>
+                                        @else
+                                            <option value="{{$v['id']}}" >{{$v['title']}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -42,7 +47,7 @@
                                 <select class="form-control" name="parentid">
                                     <option value="0">作为一级</option>
                                     @foreach($categories as $v)
-                                        @if($v['id'] == $parentid)
+                                        @if($v['id'] == $category->parentid)
                                             <option value="{{$v['id']}}" selected>{{$v['catname']}}</option>
                                         @else
                                             <option value="{{$v['id']}}">{{$v['catname']}}</option>
@@ -56,14 +61,14 @@
                             <label for="field-1" class="col-sm-3 control-label">栏目名称</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="catname" />
+                                <input type="text" class="form-control" name="catname" value="{{ $category->catname }}" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="field-1" class="col-sm-3 control-label">栏目目录</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="catdir" />
+                                <input type="text" class="form-control" name="catdir" value="catdir"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -81,14 +86,14 @@
                             <div class="col-sm-5">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="ismenu" value="1" checked>是
+                                        <input type="radio" name="ismenu" value="1" @if($category->ismenu) checked @endif>是
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="ismenu" value="0">否
+                                        <input type="radio" name="ismenu" value="0" @if(!$category->ismenu) checked @endif>否
                                     </label>
-                                  </div>
+                                </div>
                             </div>
                         </div>
 
@@ -99,7 +104,7 @@
                                 @foreach(\App\Models\Role::get() as $v)
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="readgroup[]" value="{{ $v->id }}"> {{ $v->name }}
+                                            <input type="checkbox" name="readgroup[]" value="{{ $v->id }}" @if(in_array($v->id, $readGroup)) checked @endif> {{ $v->name }}
                                         </label>
                                     </div>
                                 @endforeach
@@ -112,7 +117,7 @@
                                 @foreach(\App\Models\Role::get() as $v)
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="postgroup[]" value="{{ $v->id }}"> {{ $v->name }}
+                                            <input type="checkbox" name="postgroup[]" value="{{ $v->id }}" @if(in_array($v->id, $postGroup)) checked @endif> {{ $v->name }}
                                         </label>
                                     </div>
                                 @endforeach
@@ -127,7 +132,7 @@
                             <label for="field-1" class="col-sm-3 control-label">SEO栏目标题</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control input-lg" name="title">
+                                <input type="text" class="form-control input-lg" name="title" value="{{ $category->title }}">
                             </div>
                         </div>
 
@@ -135,7 +140,7 @@
                             <label for="field-1" class="col-sm-3 control-label">SEO栏目关键词</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="keywords">
+                                <input type="text" class="form-control" name="keywords" value="{{ $category->keywords }}">
                             </div>
                         </div>
 
@@ -143,7 +148,7 @@
                             <label for="field-1" class="col-sm-3 control-label">SEO栏目简介</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control input-sm" name="description">
+                                <textarea name="description" id="" cols="30" rows="10">{{ $category->description }}</textarea>
                             </div>
                         </div>
 

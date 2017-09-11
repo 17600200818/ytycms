@@ -26,7 +26,6 @@ class CategoriesController extends Controller
         return view('admin.categories.create', compact('categories', 'parentid', 'modules'));
     }
 
-
     public function setListOrder(Request $request)
     {
         $result = ['status' => 1];
@@ -100,5 +99,51 @@ class CategoriesController extends Controller
         }
 
         return json_encode($result);
+    }
+
+    public function edit(Category $category)
+    {
+        $categories = Category::getList(0);
+        $modules = Module::get();
+        $postGroup = explode(',', $category->postgroup);
+        $readGroup = explode(',', $category->readgroup);
+        return view('admin.categories.edit', compact('category', 'categories', 'modules', 'postGroup', 'readGroup'));
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'catname' => 'required',
+        ]);
+
+        $readgroup = '';
+        if (!empty($request->readgroup)) {
+            $readgroup = implode(',', $request->readgroup);
+        }
+
+        $postgroup = '';
+        if (!empty($request->postgroup)) {
+            $postgroup = implode(',', $request->postgroup);
+        }
+
+        $module = Module::where('id',  $request->moduleid)->first();
+        $moduleName = $module->name;
+
+        DB::table('categories')->where('id', $request->id)->update([
+            'moduleid' => $request->moduleid,
+            'module' => $moduleName,
+            'parentid' => $request->parentid,
+            'catname' => $request->catname,
+            'catdir' => $request->catdir ?: '',
+            'ismenu' => $request->ismenu,
+            'title' => $request->title ?: '',
+            'keywords' => $request->keywords ?: '',
+            'description' => $request->description ?: '',
+            'readgroup' => $readgroup,
+            'postgroup' => $postgroup
+        ]);
+
+        Session::flash('success', '修改成功');
+        return redirect()->route('admin.categories.index');
     }
 }
