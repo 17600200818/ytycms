@@ -15,6 +15,7 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'f960e77410032f236cef8c56617b313e' => __DIR__ . '/..' . '/overtrue/laravel-lang/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -62,6 +63,10 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
+        ),
+        'O' => 
+        array (
+            'Overtrue\\LaravelLang\\' => 21,
         ),
         'M' => 
         array (
@@ -202,6 +207,10 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'Overtrue\\LaravelLang\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/overtrue/laravel-lang/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -302,11 +311,13 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\ArticlesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ArticlesController.php',
         'App\\Http\\Controllers\\Admin\\CategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CategoriesController.php',
         'App\\Http\\Controllers\\Admin\\ConfigsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ConfigsController.php',
         'App\\Http\\Controllers\\Admin\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MenuController.php',
         'App\\Http\\Controllers\\Admin\\PosidsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PosidsController.php',
         'App\\Http\\Controllers\\Admin\\TypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TypesController.php',
+        'App\\Http\\Controllers\\Admin\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UsersController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -319,6 +330,7 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Article' => __DIR__ . '/../..' . '/app/Models/Article.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Config' => __DIR__ . '/../..' . '/app/Models/Config.php',
         'App\\Models\\Module' => __DIR__ . '/../..' . '/app/Models/Module.php',
@@ -1915,6 +1927,9 @@ class ComposerStaticInita2ddc0e18a25421545beba36e4b05461
         'Monolog\\Processor\\UidProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/UidProcessor.php',
         'Monolog\\Processor\\WebProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
         'Monolog\\Registry' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Registry.php',
+        'Overtrue\\LaravelLang\\Commands\\Publish' => __DIR__ . '/..' . '/overtrue/laravel-lang/src/Commands/Publish.php',
+        'Overtrue\\LaravelLang\\FileLoader' => __DIR__ . '/..' . '/overtrue/laravel-lang/src/FileLoader.php',
+        'Overtrue\\LaravelLang\\TranslationServiceProvider' => __DIR__ . '/..' . '/overtrue/laravel-lang/src/TranslationServiceProvider.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/AssertionFailedError.php',

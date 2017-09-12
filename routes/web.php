@@ -8,8 +8,17 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/login', 'SessionsController@create')->name('login');
+Route::post('/login', 'SessionsController@store')->name('login');
+Route::delete('/logout', 'SessionsController@destroy')->name('logout');
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+    Route::resource('users', 'UsersController');
+
+//    Route::get('/login', 'SessionsController@create')->name('login');
+//    Route::post('/login', 'SessionsController@store')->name('login');
+//    Route::delete('/logout', 'SessionsController@destroy')->name('logout');
+
     Route::get('/configs', 'ConfigsController@index')->name('configs.index');
     Route::post('/configs/setConfig', 'ConfigsController@setConfig')->name('configs.setConfig');
 
@@ -32,4 +41,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::post('/categories/delete', 'CategoriesController@delete')->name('categories.delete');
     Route::get('/categories/{category}/edit', 'CategoriesController@edit')->name('categories.edit');
     Route::patch('/categories/{id}', 'CategoriesController@update')->name('categories.update');
+
+    Route::get('/articles/create/{catid}', 'ArticlesController@create')->name('articles.create');
 });

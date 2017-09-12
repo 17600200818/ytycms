@@ -22,7 +22,7 @@
             <td>@{{ category.ismenu }}</td>
             <td>@{{ category.ismenu }}</td>
             <td>
-                <a :href="'/admin/categories/create/'+category.id" class="btn btn-default btn-sm btn-icon icon-left">
+                <a :href="'/admin/articles/create/'+category.id" class="btn btn-default btn-sm btn-icon icon-left">
                     <i class="entypo-pencil"></i>
                     添加内容
                 </a>

@@ -737,25 +737,25 @@
 
 
 //    toastr.error("You have been awarded with 1 year free subscription. Enjoy it!", "Account Subcription Updated", opts);
-    @if(count($errors) > 0)
-      @foreach($errors->all() as $error)
-        toastr.error($error, "错误", opts);
+@if(count($errors) > 0)
+    @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}', "错误", opts);
     @endforeach
-  @endif
+@endif
 
-  @foreach(['error', 'success', 'info', 'warning'] as $msg)
+@foreach(['error', 'success', 'info', 'warning'] as $msg)
     @if(session()->has($msg))
-      @if($msg == 'error')
-        toastr.error('{{ session()->get($msg) }}', "错误", opts);
-    @elseif($msg == 'success')
-      toastr.success('{{ session()->get($msg) }}', "提示", opts);
-    @elseif($msg == 'info')
-      toastr.info('{{ session()->get($msg) }}', "提示", opts);
-    @else
-      toastr.warning('{{ session()->get($msg) }}', "警告", opts);
+        @if($msg == 'error')
+            toastr.error('{{ session()->get($msg) }}', "错误", opts);
+        @elseif($msg == 'success')
+            toastr.success('{{ session()->get($msg) }}', "提示", opts);
+        @elseif($msg == 'info')
+            toastr.info('{{ session()->get($msg) }}', "提示", opts);
+        @else
+            toastr.warning('{{ session()->get($msg) }}', "警告", opts);
+        @endif
     @endif
-    @endif
-    @endforeach
+@endforeach
   })
 </script>
 @yield('script')
