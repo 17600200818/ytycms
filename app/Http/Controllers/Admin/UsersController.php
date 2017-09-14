@@ -17,6 +17,9 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        $role = Role::findOrFail($request->groupid);
+        $platform = $role->platform;
+
         $this->validate($request, [
             'name' => 'required|max:50',
             'email' => 'required|unique:users|email',
@@ -24,10 +27,11 @@ class UsersController extends Controller
         ]);
 
         $user = User::create([
-            'groupid' => $request->groupid,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'groupid' => $request->groupid,
+            'platform' => $platform
         ]);
 
         session()->flash('success', '创建成功');

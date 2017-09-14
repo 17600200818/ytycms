@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Admin;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -36,7 +37,7 @@ class GetMenu
         $menu = $this->getChild(0);
 
         Session::put('menu', $menu);
-//        dd(Session::get('menu'));
+
         return $next($request);
     }
 

@@ -24,8 +24,8 @@ class SessionsController extends Controller
         $password = $request->password;
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             session()->flash('success', '欢迎回来');
-            $groupid = Auth::user()->groupid;
-            if (in_array($groupid, [1,2])) {
+            $platform = Auth::user()->platform;
+            if ( $platform == 1 || $platform == 2 ) {
                 return redirect()->route('admin.users.create');
             }else{
                 return redirect()->route('index');

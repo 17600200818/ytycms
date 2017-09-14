@@ -117,8 +117,8 @@
           <li class="profile-info dropdown"><!-- add class "pull-right" if you want to place this from right -->
 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
-              John Henderson
+              <img src="http://www.gravatar.com/avatar/{{ md5(strtolower(trim(Auth::user()->email))) }}?s=100" alt="" class="img-circle" width="44" />
+              {{ Auth::user()->name }}
             </a>
 
             <ul class="dropdown-menu">

@@ -12,7 +12,7 @@ Route::get('/login', 'SessionsController@create')->name('login');
 Route::post('/login', 'SessionsController@store')->name('login');
 Route::delete('/logout', 'SessionsController@destroy')->name('logout');
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
     Route::resource('users', 'UsersController');
 
 //    Route::get('/login', 'SessionsController@create')->name('login');
@@ -43,4 +43,5 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::patch('/categories/{id}', 'CategoriesController@update')->name('categories.update');
 
     Route::get('/articles/create/{catid}', 'ArticlesController@create')->name('articles.create');
+    Route::post('/articles/store', 'ArticlesController@store')->name('articles.store');
 });
