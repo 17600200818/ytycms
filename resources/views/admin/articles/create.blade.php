@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 @section('content')
-    <script type="text/javascript" charset="utf-8" src="/ueditor1_4_3_3-utf8/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/ueditor1_4_3_3-utf8/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="/ueditor1_4_3_3-utf8/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
     <div class="row">
         <div class="col-xs-12">
 
@@ -25,7 +25,7 @@
 
                 <div class="panel-body">
 
-                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.articles.store') }}" method="post">
+                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
 
                         {{csrf_field()}}
                         @if($catid == 0)
@@ -41,29 +41,50 @@
                         @else
                             <input type="hidden" name="catid" value="{{ $catid }}">
                         @endif
-                        <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="username" value="{{ Auth::user()->name }}">
-
                         <div class="form-group">
                             <label for="field-1" class="col-sm-2 control-label">标题</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="title" />
+                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="field-1" class="col-sm-2 control-label">关键词</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="keywords" />
+                                <input type="text" class="form-control" name="keywords" value="{{ old('keywords') }}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="field-1" class="col-sm-2 control-label">SEO简介</label>
                             <div class="col-sm-5">
-                                <textarea name="description" id="" cols="30" rows="10"description></textarea>
+                                <textarea class="form-control" name="description" id="" cols="30" rows="10"description>{{ old('description') }}</textarea>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">缩略图</label>
+
+                            <div class="col-sm-5">
+
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
+                                        <img src="http://placehold.it/200x150" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
+                                    <div>
+											<span class="btn btn-white btn-file">
+												<span class="fileinput-new">Select image</span>
+												<span class="fileinput-exists">Change</span>
+												<input type="file" name="thumb" accept="/image/*">
+											</span>
+                                        <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="field-1" class="col-sm-2 control-label">内容</label>
 
@@ -73,9 +94,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="field-1" class="col-sm-2 control-label">发布时间</label>
+                            <label for="field-1" class="col-sm-2 control-label">发布开始时间</label>
                             <div class="col-sm-5">
-                                <textarea name="created_at" id="" cols="30" rows="10"></textarea>
+                                <div class="date-and-time">
+                                    <input type="text" class="form-control datepicker" name="start_at1" data-format="yyyy-mm-dd" value="{{ $today }}">
+                                    <input type="text" class="form-control timepicker" name="start_at2" data-template="dropdown" data-default-time="0:00" data-show-meridian="false" data-minute-step="1" value="{{ old('start_at2') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="field-1" class="col-sm-2 control-label">发布结束时间<br/>(不选时间不会结束发布)</label>
+                            <div class="col-sm-5">
+                                <div class="date-and-time">
+                                    <input type="text" class="form-control datepicker" name="stop_at1" data-format="yyyy-mm-dd" value="{{ old('stop_at1') }}">
+                                    <input type="text" class="form-control timepicker" name="stop_at2" data-template="dropdown" data-default-time="" data-show-meridian="false" data-minute-step="1" value="{{ old('stop_at2') }}">
+                                </div>
                             </div>
                         </div>
 
@@ -83,7 +117,7 @@
                             <label for="field-1" class="col-sm-2 control-label">来源</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="copyfrom" />
+                                <input type="text" class="form-control" name="copyfrom" value="{{ old('copyform') }}"/>
                             </div>
                         </div>
 
@@ -91,7 +125,7 @@
                             <label for="field-1" class="col-sm-2 control-label">来源网址</label>
 
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="fromlink" />
+                                <input type="text" class="form-control" name="fromlink" value="{{ old('fromlink') }}"/>
                             </div>
                         </div>
 
@@ -126,24 +160,11 @@
                             <label for="field-1" class="col-sm-2 control-label">模板</label>
 
                             <div class="col-sm-5">
-                                <select class="form-control" name="templ">
+                                <select class="form-control" name="template">
                                     @foreach([1,2,3,4,5,6] as $posid)
                                         <option value='{{ $posid }}'>{{ $posid }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="field-1" class="col-sm-2 control-label">发布时间</label>
-
-                            <div class="col-sm-5">
-                                <div class="radio">
-                                    <input type="radio" name="release" value="0">发布
-                                </div>
-                                <div class="radio">
-                                    <input type="radio" name="release" value="1">定时发布
-                                </div>
                             </div>
                         </div>
 
@@ -163,6 +184,13 @@
 @stop
 
 @section('script')
+<script src="/assets/js/fileinput.js"></script>
+
+<script src="/assets/js/bootstrap-datepicker.js"></script>
+<script src="/assets/js/bootstrap-timepicker.min.js"></script>
+<script src="/assets/js/bootstrap-colorpicker.min.js"></script>
+<script src="/assets/js/daterangepicker/moment.min.js"></script>
+<script src="/assets/js/daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript">
 
     //实例化编辑器
