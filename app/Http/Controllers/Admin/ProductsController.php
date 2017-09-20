@@ -38,9 +38,6 @@ class ProductsController extends Controller
             'price' => 'int',
         ]);
 
-        61f20acdcf42e7f7fb4c11c7b78f1c27.jpg
-
-    /qiye/Uploads/201709/59c22a83b5c43.jpg|61f20acdcf42e7f7fb4c11c7b78f1c27.jpg:::/qiye/Uploads/201709/59c22a8522926.jpg|61f20acdcf42e7f7fb4c11c7b78f1c27.jpg
 
 
 
