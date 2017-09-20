@@ -29,10 +29,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
 
     Route::get('/menu', 'MenuController@index')->name('menu.index');
     Route::get('/menu/create/{parentid}', 'MenuController@create')->name('menu.create');
-    Route::get('/menu/{id}/edit', 'MenuController@edit')->name('menu.edit');
     Route::post('/menu/store', 'MenuController@store')->name('menu.store');
-    Route::post('/menu/setListOrder', 'MenuController@setListOrder')->name('menu.setListOrder');
     Route::post('/menu/delete', 'MenuController@delete')->name('menu.delete');
+    Route::get('/menu/{id}/edit', 'MenuController@edit')->name('menu.edit');
+    Route::patch('/menu/{id}', 'MenuController@update')->name('menu.update');
+    Route::post('/menu/setListOrder', 'MenuController@setListOrder')->name('menu.setListOrder');
 
     Route::get('/categories', 'CategoriesController@index')->name('categories.index');
     Route::post('/categories/setListOrder', 'CategoriesController@setListOrder')->name('categories.setListOrder');
@@ -47,5 +48,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::get('/articles', 'ArticlesController@index')->name('articles.index');
     Route::get('/articles/{article}/edit', 'ArticlesController@edit')->name('articles.edit');
     Route::post('/articles/delete', 'ArticlesController@delete')->name('articles.delete');
-    Route::get('/articles/{article}/edit', 'ArticlesController@edit')->name('articles.edit');
+    Route::patch('/articles/{article}', 'ArticlesController@update')->name('articles.update');
+    Route::post('/articles/setListOrder', 'ArticlesController@setListOrder')->name('articles.setListOrder');
+
+    Route::get('/products', 'ProductsController@index')->name('products.index');
+    Route::get('/products/create/{catid}', 'ProductsController@create')->name('products.create');
+    Route::post('/products/store', 'ProductsController@store')->name('products.store');
 });

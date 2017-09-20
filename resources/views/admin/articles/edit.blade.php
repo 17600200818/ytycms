@@ -25,9 +25,10 @@
 
                 <div class="panel-body">
 
-                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
+                    <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
 
-                        {{csrf_field()}}
+                        {{ csrf_field() }}
+                        {{ method_field('PATCH') }}
                         <div class="form-group">
                             <label for="field-1" class="col-sm-2 control-label">栏目</label>
 
@@ -72,7 +73,7 @@
 
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
-                                        <img src="{{ '/storage'.ltrim($article->thumb, 'public') }}" alt="...">
+                                        <img src="{{ '/storage'.substr($article->thumb, 6) }}" alt="...">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
                                     <div>

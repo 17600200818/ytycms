@@ -37,9 +37,9 @@
 
     </table>
 
-    <a href="{{ route('admin.categories.create', 0) }}" class="btn btn-primary">
+    <a href="{{ route('admin.articles.create', 0) }}" class="btn btn-primary">
         <i class="entypo-plus"></i>
-        添加栏目
+        添加文章
     </a>
 @stop
 @section('script')
@@ -81,20 +81,20 @@
                             }).catch(function (result) { //捕捉错误处理
                     });
                 },
-                {{--'setListOrder': function (index) {--}}
-                    {{--var category = this.categories[index];--}}
-                    {{--var id = category.id;--}}
-                    {{--var listorder = category.listorder;--}}
-                    {{--this.$http.post('{{ route('admin.categories.setListOrder') }}',--}}
-                            {{--{_token:'{{csrf_token()}}', id: id, listorder: listorder},--}}
-                            {{--{emulateJSON:true})--}}
-                            {{--.then(function (result) {//正确请求成功时处理--}}
-                                {{--if(result.data.status == 0) {--}}
-                                    {{--alert(result.data.msg);--}}
-                                {{--}--}}
-                            {{--}).catch(function (result) { //捕捉错误处理--}}
-                    {{--});--}}
-                {{--}--}}
+                'setListOrder': function (index) {
+                    var article = this.articles[index];
+                    var id = article.id;
+                    var listorder = article.listorder;
+                    this.$http.post('{{ route('admin.articles.setListOrder') }}',
+                            {_token:'{{csrf_token()}}', id: id, listorder: listorder},
+                            {emulateJSON:true})
+                            .then(function (result) {//正确请求成功时处理
+                                if(result.data.status == 0) {
+                                    alert(result.data.msg);
+                                }
+                            }).catch(function (result) { //捕捉错误处理
+                    });
+                }
             }
         });
     </script>

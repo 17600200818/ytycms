@@ -33,8 +33,10 @@
                                 <label for="field-1" class="col-sm-2 control-label">栏目</label>
 
                                 <div class="col-sm-5">
-                                    <select class="form-control" name="moduleid">
-                                        <option value=1></option>
+                                    <select class="form-control" name="catid">
+                                        @foreach($categories as $k => $v)
+                                            <option value='{{ $v->id }}'>{{ $v->catname }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

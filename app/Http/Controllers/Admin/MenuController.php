@@ -106,4 +106,25 @@ class MenuController extends Controller
 
         return view('admin.menu.edit', compact('menu', 'menus'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        DB::table('menu')->where('id', $id)->update([
+            'parentid' => $request->parentid,
+            'name' => $request->name,
+            'icon' => $request->icon ?: 'entypo-gauge',
+            'route' => $request->route ?: '',
+            'data' => $request->data ?: '',
+            'remark' => $request->remark ?: '',
+            'status' => $request->status,
+            'type' => $request->type,
+        ]);
+
+        Session::flash('success', '修改菜单成功');
+        return redirect()->route('admin.menu.index');
+    }
 }

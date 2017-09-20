@@ -2,9 +2,10 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12">
-            <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.menu.store') }}" method="post">
+            <form role="form" class="form-horizontal form-groups-bordered" action="{{ route('admin.menu.update', $menu->id) }}" method="post">
 
-                {{csrf_field()}}
+                {{ csrf_field() }}
+                {{ method_field('PATCH') }}
                 <div class="form-group">
                     <label for="field-1" class="col-sm-3 control-label">上级</label>
 
