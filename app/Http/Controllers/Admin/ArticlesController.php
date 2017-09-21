@@ -83,6 +83,11 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
         $categories = Category::getList(0);
+        foreach ($categories as $k => $v) {
+            if ($v->moduleid != 2) {
+                unset($categories[$k]);
+            }
+        }
         $readgroup = explode(',', $article->readgroup);
         $posidsArr = explode(',', $article->posid);
         $posids = DB::table('posids')->get();

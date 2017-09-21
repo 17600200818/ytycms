@@ -22,7 +22,7 @@
             <td>@{{ v.hits }}</td>
             <td>@{{ v.username }}</td>
             <td>
-                <a :href="'/admin/articles/'+v.id+'/edit'" class="btn btn-default btn-sm btn-icon icon-left">
+                <a :href="'/admin/products/'+v.id+'/edit'" class="btn btn-default btn-sm btn-icon icon-left">
                     <i class="entypo-pencil"></i>
                     修改
                 </a>
@@ -63,38 +63,38 @@
                 ]
             },
             methods: {
-                {{--'sub': function (id, index) {--}}
+                'sub': function (id, index) {
 
-                    {{--if (!confirm('确定删除么')) {--}}
-                        {{--return false;--}}
-                    {{--}--}}
+                    if (!confirm('确定删除么')) {
+                        return false;
+                    }
 
-                    {{--this.$http.post('{{ route('admin.articles.delete') }}',--}}
-                            {{--{_token:'{{csrf_token()}}', id: id},--}}
-                            {{--{emulateJSON:true})--}}
-                            {{--.then(function (result) {//正确请求成功时处理--}}
-                                {{--if(result.data.status != 0) {--}}
-                                    {{--alert(result.data.msg);--}}
-                                {{--}else {--}}
-                                    {{--this.articles.splice(index, 1);--}}
-                                {{--}--}}
-                            {{--}).catch(function (result) { //捕捉错误处理--}}
-                    {{--});--}}
-                {{--},--}}
-                {{--'setListOrder': function (index) {--}}
-                    {{--var article = this.articles[index];--}}
-                    {{--var id = article.id;--}}
-                    {{--var listorder = article.listorder;--}}
-                    {{--this.$http.post('{{ route('admin.articles.setListOrder') }}',--}}
-                            {{--{_token:'{{csrf_token()}}', id: id, listorder: listorder},--}}
-                            {{--{emulateJSON:true})--}}
-                            {{--.then(function (result) {//正确请求成功时处理--}}
-                                {{--if(result.data.status == 0) {--}}
-                                    {{--alert(result.data.msg);--}}
-                                {{--}--}}
-                            {{--}).catch(function (result) { //捕捉错误处理--}}
-                    {{--});--}}
-                {{--}--}}
+                    this.$http.post('{{ route('admin.products.delete') }}',
+                            {_token:'{{csrf_token()}}', id: id},
+                            {emulateJSON:true})
+                            .then(function (result) {//正确请求成功时处理
+                                if(result.data.status != 0) {
+                                    alert(result.data.msg);
+                                }else {
+                                    this.products.splice(index, 1);
+                                }
+                            }).catch(function (result) { //捕捉错误处理
+                    });
+                },
+                'setListOrder': function (index) {
+                    var product = this.products[index];
+                    var id = product.id;
+                    var listorder = product.listorder;
+                    this.$http.post('{{ route('admin.products.setListOrder') }}',
+                            {_token:'{{csrf_token()}}', id: id, listorder: listorder},
+                            {emulateJSON:true})
+                            .then(function (result) {//正确请求成功时处理
+                                if(result.data.status == 0) {
+                                    alert(result.data.msg);
+                                }
+                            }).catch(function (result) { //捕捉错误处理
+                    });
+                }
             }
         });
     </script>

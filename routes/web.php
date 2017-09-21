@@ -54,4 +54,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::get('/products', 'ProductsController@index')->name('products.index');
     Route::get('/products/create/{catid}', 'ProductsController@create')->name('products.create');
     Route::post('/products/store', 'ProductsController@store')->name('products.store');
+    Route::get('/products/{product}/edit', 'ProductsController@edit')->name('products.edit');
+    Route::patch('/products/{product}', 'ProductsController@update')->name('products.update');
+    Route::post('/products/setListOrder', 'ProductsController@setListOrder')->name('products.setListOrder');
+    Route::post('/products/delete', 'ProductsController@delete')->name('products.delete');
 });
