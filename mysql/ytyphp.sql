@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-09-01 18:28:10
+Date: 2017-09-21 16:21:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3316,23 +3316,23 @@ INSERT INTO `area` VALUES ('3265', '3242', '云林县', '0');
 INSERT INTO `area` VALUES ('3266', '3242', '彰化县', '0');
 
 -- ----------------------------
--- Table structure for article
+-- Table structure for articles
 -- ----------------------------
-DROP TABLE IF EXISTS `article`;
-CREATE TABLE `article` (
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE `articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `userid` int(11) unsigned NOT NULL DEFAULT '0',
   `username` varchar(40) NOT NULL DEFAULT '',
   `title` varchar(120) NOT NULL DEFAULT '',
-  `title_style` varchar(40) NOT NULL DEFAULT '',
-  `keywords` varchar(120) NOT NULL DEFAULT '',
-  `copyfrom` varchar(255) NOT NULL DEFAULT '',
-  `fromlink` varchar(80) NOT NULL DEFAULT '0',
-  `description` mediumtext NOT NULL,
+  `title_style` varchar(40) DEFAULT '',
+  `keywords` varchar(120) DEFAULT '',
+  `copyfrom` varchar(255) DEFAULT '',
+  `fromlink` varchar(80) DEFAULT '0',
+  `description` mediumtext,
   `content` text NOT NULL,
   `template` varchar(30) NOT NULL DEFAULT '',
-  `thumb` varchar(100) NOT NULL DEFAULT '',
+  `thumb` varchar(100) DEFAULT '',
   `posid` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `recommend` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -3341,20 +3341,24 @@ CREATE TABLE `article` (
   `listorder` int(10) unsigned NOT NULL DEFAULT '0',
   `url` varchar(150) NOT NULL DEFAULT '',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
   `lang` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `start_at` datetime DEFAULT NULL,
+  `stop_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`id`,`status`,`listorder`),
   KEY `catid` (`id`,`catid`,`status`),
   KEY `lang` (`id`,`lang`,`status`),
   KEY `listorder` (`id`,`catid`,`status`,`listorder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of article
+-- Records of articles
 -- ----------------------------
+INSERT INTO `articles` VALUES ('5', '1', '2', '111111', '111111111111', '', '222222', null, 'http://www.baodi.xom', '111111111', '<p>11111111111111111</p>', '1', '', '1', '0', '1', '1,2,3,4,5', '0', '0', '', '0', null, null, '', '0', '2017-09-19 00:00:00', null);
+INSERT INTO `articles` VALUES ('4', '1', '2', '111111', '修改后的', '1222', '修改后的', '修改后的', 'http://www.baodi.com', '修改后的', '<p>修改后的</p>', '1', 'public/images/thumbs/0EjAdYoxTOWufSHpqrXGCqPBzirebhQuJroTbHLJ.jpeg', '5', '0', '2', '1,2,3,4,5', '0', '1', '', '0', null, '2017-09-19 04:08:31', '', '0', '2017-09-18 23:00:00', '2017-09-20 22:59:00');
 
 -- ----------------------------
 -- Table structure for attachment
@@ -3435,10 +3439,10 @@ CREATE TABLE `cart` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for category
+-- Table structure for categories
 -- ----------------------------
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category` (
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `catname` varchar(30) NOT NULL DEFAULT '',
   `catdir` varchar(30) NOT NULL DEFAULT '',
@@ -3453,7 +3457,6 @@ CREATE TABLE `category` (
   `keywords` varchar(100) NOT NULL DEFAULT '',
   `description` varchar(255) NOT NULL DEFAULT '',
   `listorder` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `ishtml` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `ismenu` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `hits` int(10) unsigned NOT NULL DEFAULT '0',
   `image` varchar(100) NOT NULL DEFAULT '',
@@ -3474,30 +3477,30 @@ CREATE TABLE `category` (
   PRIMARY KEY (`id`),
   KEY `parentid` (`parentid`),
   KEY `listorder` (`listorder`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of category
+-- Records of categories
 -- ----------------------------
-INSERT INTO `category` VALUES ('1', '新闻中心', 'news', '', '0', '2', 'Article', '0', '1,2,3,10,16', '0', '公司新闻11', '公司新闻', '公司新闻', '0', '0', '1', '0', '', '1', '/qiye/index.php?m=Article&a=index&id=1', '', '', '0', '', '1', '1', '4', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('2', '行业新闻', 'hangye', 'news/', '1', '2', 'Article', '0,1', '2', '0', '行业新闻', '行业新闻', '行业新闻', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=2', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('3', '公司新闻', 'gongsi', 'news/', '1', '2', 'Article', '0,1', '3', '0', '公司新闻', '公司新闻', '公司新闻', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=3', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('4', '产品展示', 'Product', '', '0', '3', 'Product', '0', '4,5,6,7,9,13,20', '0', '产品展示标题', '产品展示关键词', '产品展示栏目简介', '0', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=4', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('5', '产品分类1', 'cp1', 'Product/', '4', '3', 'Product', '0,4', '5', '0', '产品分类1', '产品分类1产品分类1', '产品分类1', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=5', '', '', '0', '2,3,4', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('6', '产品分类2', 'cp2', 'Product/', '4', '3', 'Product', '0,4', '6', '0', '产品分类2', '产品分类2', '产品分类2', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=6', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('7', '产品分类3', 'cp3', 'Product/', '4', '3', 'Product', '0,4', '7', '0', '产品分类3', '产品分类3', '产品分类3', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=7', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('8', '关于我们', 'about', '', '0', '1', 'Page', '0', '8,11,12', '0', '', '', '', '99', '0', '1', '0', '', '1', '/qiye/index.php?m=Page&a=index&id=8', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('10', '行业资讯', 'zixun', 'news/', '1', '2', 'Article', '0,1', '10', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=10', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('13', '产品分类5', 'cp5', 'Product/cp4/', '9', '3', 'Product', '0,4,9', '13,20', '0', '', '', '', '0', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=13', '', 'Product_show', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('9', '产品分类4', 'cp4', 'Product/', '4', '3', 'Product', '0,4', '9,13,20', '0', '', '', '', '0', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=9', '', '', '0', '2,3', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('11', '公司简介', 'info', 'about/', '8', '1', 'Page', '0,8', '11', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Page&a=index&id=11', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('12', '联系我们', 'contactus', 'about/', '8', '1', 'Page', '0,8', '12', '0', '联系我们', '联系我们', '联系我们', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Page&a=index&id=12', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('14', '图片展示', 'pics', '', '0', '4', 'Picture', '0', '14', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Picture&a=index&id=14', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('17', '文档下载', 'down', '', '0', '5', 'Download', '0', '17', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Download&a=index&id=17', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('16', '国内新闻', 'cnnews', 'news/', '1', '2', 'Article', '0,1', '16', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=16', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
-INSERT INTO `category` VALUES ('18', '信息反馈', 'Feedback', 'Guestbook/', '19', '6', 'Feedback', '0,19', '18', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Feedback&a=index&id=18', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '1,2,3,4');
-INSERT INTO `category` VALUES ('19', '在线留言', 'Guestbook', '', '0', '8', 'Guestbook', '0', '19,18', '0', '', '', '', '0', '0', '1', '0', '', '1', '/qiye/index.php?m=Guestbook&a=index&id=19', '', '', '5', '', '0', '1', '0', '0', '0', '0', '0', '1,2,3,4');
-INSERT INTO `category` VALUES ('20', '123', 'abc', 'Product/cp4/cp5/', '13', '3', 'Product', '0,4,9,13', '20', '0', '', '', '', '0', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=20', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('1', '新闻中心1', 'catdir', '', '0', '2', 'Article', '0', '1,2,3,10,16', '0', '公司新闻11', '公司新闻', '公司新闻', '0', '1', '0', '', '1', '/qiye/index.php?m=Article&a=index&id=1', '', '', '0', '1,2,3', '1', '1', '4', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('2', '行业新闻', 'catdir', 'news/', '1', '2', 'Article', '0,1', '2', '0', '行业新闻', '行业新闻', '行业新闻', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=2', '', '', '0', '1,2,3', '0', '1', '4', '0', '0', '0', '0', '4,5');
+INSERT INTO `categories` VALUES ('3', '公司新闻', 'gongsi', 'news/', '1', '2', 'Article', '0,1', '3', '0', '公司新闻', '公司新闻', '公司新闻', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=3', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('4', '产品展示', 'Product', '', '0', '3', 'Product', '0', '4,5,6,7,9,13,20', '0', '产品展示标题', '产品展示关键词', '产品展示栏目简介', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=4', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('5', '产品分类1', 'cp1', 'Product/', '4', '3', 'Product', '0,4', '5', '0', '产品分类1', '产品分类1产品分类1', '产品分类1', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=5', '', '', '0', '2,3,4', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('6', '产品分类2', 'cp2', 'Product/', '4', '3', 'Product', '0,4', '6', '0', '产品分类2', '产品分类2', '产品分类2', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=6', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('7', '产品分类3', 'cp3', 'Product/', '4', '3', 'Product', '0,4', '7', '0', '产品分类3', '产品分类3', '产品分类3', '0', '1', '0', '', '0', '/qiye/index.php?m=Product&a=index&id=7', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('8', '关于我们', 'about', '', '0', '1', 'Page', '0', '8,11,12', '0', '', '', '', '99', '1', '0', '', '1', '/qiye/index.php?m=Page&a=index&id=8', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('10', '行业资讯', 'zixun', 'news/', '1', '2', 'Article', '0,1', '10', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=10', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('13', '产品分类5', 'cp5', 'Product/cp4/', '9', '3', 'Product', '0,4,9', '13,20', '0', '', '', '', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=13', '', 'Product_show', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('9', '产品分类4', 'cp4', 'Product/', '4', '3', 'Product', '0,4', '9,13,20', '0', '', '', '', '0', '1', '0', '', '1', '/qiye/index.php?m=Product&a=index&id=9', '', '', '0', '2,3', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('11', '公司简介', 'info', 'about/', '8', '1', 'Page', '0,8', '11', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Page&a=index&id=11', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('12', '联系我们', 'contactus', 'about/', '8', '1', 'Page', '0,8', '12', '0', '联系我们', '联系我们', '联系我们', '0', '1', '0', '', '0', '/qiye/index.php?m=Page&a=index&id=12', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('14', '图片展示', 'pics', '', '0', '4', 'Picture', '0', '14', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Picture&a=index&id=14', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('17', '文档下载', 'down', '', '0', '5', 'Download', '0', '17', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Download&a=index&id=17', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('16', '国内新闻', 'cnnews', 'news/', '1', '2', 'Article', '0,1', '16', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Article&a=index&id=16', '', '', '0', '', '0', '1', '4', '0', '0', '0', '0', '');
+INSERT INTO `categories` VALUES ('18', '信息反馈', 'Feedback', 'Guestbook/', '19', '6', 'Feedback', '0,19', '18', '0', '', '', '', '0', '1', '0', '', '0', '/qiye/index.php?m=Feedback&a=index&id=18', '', '', '0', '', '0', '1', '0', '0', '0', '0', '0', '1,2,3,4');
+INSERT INTO `categories` VALUES ('19', '在线留言', 'Guestbook', '', '0', '8', 'Guestbook', '0', '19,18', '0', '', '', '', '1', '1', '0', '', '1', '/qiye/index.php?m=Guestbook&a=index&id=19', '', '', '5', '', '0', '1', '0', '0', '0', '0', '0', '1,2,3,4');
+INSERT INTO `categories` VALUES ('25', '测试', '', '', '1', '1', 'Page', '', '', '0', '', '', '', '0', '1', '0', '', '0', '', '', '', '0', '', '0', '0', '0', '0', '0', '0', '0', '');
 
 -- ----------------------------
 -- Table structure for configs
@@ -3515,7 +3518,7 @@ CREATE TABLE `configs` (
 -- ----------------------------
 -- Records of configs
 -- ----------------------------
-INSERT INTO `configs` VALUES ('site_name', '网站名称', '2', 'ytycms', '1');
+INSERT INTO `configs` VALUES ('site_name', '网站名称', '2', 'ytycms5.5', '1');
 INSERT INTO `configs` VALUES ('site_url', '网站网址', '2', 'ytycms.app', '1');
 INSERT INTO `configs` VALUES ('logo', '网站LOGO', '2', '/Public/Images/logo.gif', '1');
 INSERT INTO `configs` VALUES ('site_email', '站点邮箱', '2', '17600200818@163.com', '1');
@@ -3568,7 +3571,7 @@ INSERT INTO `configs` VALUES ('member_emailchecktpl', '邮件认证模板', '3',
 INSERT INTO `configs` VALUES ('member_getpwdemaitpl', '密码找回邮件内容', '3', '尊敬的用户{username}，请点击进入<a href=\"{url}\">重置密码</a>,或者将网址复制到浏览器：{url}（链接3天内有效）。<br>感谢您对本站的支持。<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　{sitename}<br>此邮件为系统自动邮件，无需回复。', '1');
 INSERT INTO `configs` VALUES ('LAYOUT_ON', '布局模板', '6', '1', '0');
 INSERT INTO `configs` VALUES ('ADMIN_VERIFY', '后台登陆验证码', '6', '1', '0');
-INSERT INTO `configs` VALUES ('site_name', '网站名称', '2', 'ytycms', '2');
+INSERT INTO `configs` VALUES ('site_name', '网站名称', '2', 'ytycms5.5', '2');
 INSERT INTO `configs` VALUES ('site_url', '网站网址', '2', 'ytycms.app', '2');
 INSERT INTO `configs` VALUES ('logo', '网站LOGO', '2', './Public/Images/logo.gif', '2');
 INSERT INTO `configs` VALUES ('site_email', '站点邮箱', '2', '17600200818@163.com', '2');
@@ -3918,7 +3921,7 @@ CREATE TABLE `menu` (
   KEY `status` (`status`),
   KEY `parentid` (`parentid`),
   KEY `model` (`route`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -3933,7 +3936,7 @@ INSERT INTO `menu` VALUES ('7', '0', 'admin.posids.index', 'entypo-gauge', 'menu
 INSERT INTO `menu` VALUES ('39', '2', 'admin.menu.index', 'entypo-gauge', '', '1', '1', '0', '后台管理菜单', '后台管理菜单', '11');
 INSERT INTO `menu` VALUES ('15', '39', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加菜单', '', '0');
 INSERT INTO `menu` VALUES ('50', '2', 'admin.configs.index', 'entypo-gauge', '', '1', '1', '0', '站点配置', '', '0');
-INSERT INTO `menu` VALUES ('22', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '产品模型', '', '3');
+INSERT INTO `menu` VALUES ('22', '3', 'admin.products.index', 'entypo-gauge', '', '1', '1', '0', '产品模型', '', '3');
 INSERT INTO `menu` VALUES ('8', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '系统参数', '', '0');
 INSERT INTO `menu` VALUES ('32', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '用户中心设置', '', '0');
 INSERT INTO `menu` VALUES ('59', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加系统变量', '', '99');
@@ -3944,10 +3947,9 @@ INSERT INTO `menu` VALUES ('12', '11', 'admin.posids.index', 'entypo-gauge', '',
 INSERT INTO `menu` VALUES ('13', '5', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '权限节点管理', '', '0');
 INSERT INTO `menu` VALUES ('14', '13', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加权限节点', '', '0');
 INSERT INTO `menu` VALUES ('16', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '模型管理', '', '99');
-INSERT INTO `menu` VALUES ('17', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '栏目管理', '栏目管理', '1');
 INSERT INTO `menu` VALUES ('18', '16', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加模型', '', '0');
 INSERT INTO `menu` VALUES ('19', '17', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加栏目', '', '0');
-INSERT INTO `menu` VALUES ('20', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '文章模型', '', '2');
+INSERT INTO `menu` VALUES ('20', '3', 'admin.articles.index', 'entypo-gauge', '', '1', '1', '0', '文章模型', '', '2');
 INSERT INTO `menu` VALUES ('21', '20', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加文章', '', '0');
 INSERT INTO `menu` VALUES ('23', '2', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '推荐位管理', '', '0');
 INSERT INTO `menu` VALUES ('24', '23', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加推荐位', '', '0');
@@ -4009,7 +4011,8 @@ INSERT INTO `menu` VALUES ('83', '1', 'admin.posids.index', 'entypo-gauge', '', 
 INSERT INTO `menu` VALUES ('84', '2', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '在线升级', '', '0');
 INSERT INTO `menu` VALUES ('85', '84', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '文件校检', '', '0');
 INSERT INTO `menu` VALUES ('86', '6', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '生成网站地图', '', '0');
-INSERT INTO `menu` VALUES ('90', '1', '', 'entypo-gauge', '', '0', '0', '0', '2222', '', '0');
+INSERT INTO `menu` VALUES ('91', '3', 'admin.categories.index', 'entypo-gauge', '', '1', '1', '0', '栏目管理', '栏目管理', '0');
+INSERT INTO `menu` VALUES ('93', '5', 'admin.users.create', 'entypo-gauge', '', '1', '1', '0', '添加会员', '', '0');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -4029,10 +4032,10 @@ INSERT INTO `migrations` VALUES ('1', '2014_10_12_000000_create_users_table', '1
 INSERT INTO `migrations` VALUES ('2', '2014_10_12_100000_create_password_resets_table', '1');
 
 -- ----------------------------
--- Table structure for module
+-- Table structure for modules
 -- ----------------------------
-DROP TABLE IF EXISTS `module`;
-CREATE TABLE `module` (
+DROP TABLE IF EXISTS `modules`;
+CREATE TABLE `modules` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -4050,17 +4053,17 @@ CREATE TABLE `module` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of module
+-- Records of modules
 -- ----------------------------
-INSERT INTO `module` VALUES ('1', '单页模型', 'Page', '单页模型', '1', '1', '0', '*', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('2', '文章模型', 'Article', '新闻文章', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,listorder', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('3', '产品模型', 'Product', '产品展示', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,xinghao,price,listorder', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('4', '图片模型', 'Picture', '图片展示', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,listorder', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('5', '下载模型', 'Download', '文件下载', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,ext,size,listorder', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('6', '信息反馈', 'Feedback', '信息反馈', '1', '0', '0', '*', '', '0', '1', '1,2,3,4', '0');
-INSERT INTO `module` VALUES ('7', '友情链接', 'Link', '友情链接', '2', '0', '0', '*', '', '0', '1', '', '0');
-INSERT INTO `module` VALUES ('8', '在线留言', 'Guestbook', '在线留言', '1', '0', '0', '*', '', '0', '1', '1,2,3,4', '0');
-INSERT INTO `module` VALUES ('9', '在线客服', 'Kefu', '在线客服', '2', '0', '0', '*', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('1', '单页模型', 'Page', '单页模型', '1', '1', '0', '*', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('2', '文章模型', 'Article', '新闻文章', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,listorder', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('3', '产品模型', 'Product', '产品展示', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,xinghao,price,listorder', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('4', '图片模型', 'Picture', '图片展示', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,listorder', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('5', '下载模型', 'Download', '文件下载', '1', '1', '1', 'id,catid,url,title,title_style,userid,username,hits,keywords,description,thumb,createtime,status,ext,size,listorder', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('6', '信息反馈', 'Feedback', '信息反馈', '1', '0', '0', '*', '', '0', '1', '1,2,3,4', '0');
+INSERT INTO `modules` VALUES ('7', '友情链接', 'Link', '友情链接', '2', '0', '0', '*', '', '0', '1', '', '0');
+INSERT INTO `modules` VALUES ('8', '在线留言', 'Guestbook', '在线留言', '1', '0', '0', '*', '', '0', '1', '1,2,3,4', '0');
+INSERT INTO `modules` VALUES ('9', '在线客服', 'Kefu', '在线客服', '2', '0', '0', '*', '', '0', '1', '', '0');
 
 -- ----------------------------
 -- Table structure for node
@@ -4407,51 +4410,68 @@ INSERT INTO `posids` VALUES ('4', '促销产品', '0');
 INSERT INTO `posids` VALUES ('5', '测试推荐位', '0');
 
 -- ----------------------------
--- Table structure for product
+-- Table structure for products
 -- ----------------------------
-DROP TABLE IF EXISTS `product`;
-CREATE TABLE `product` (
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `userid` int(11) unsigned NOT NULL DEFAULT '0',
   `username` varchar(40) NOT NULL DEFAULT '',
   `title` varchar(120) NOT NULL DEFAULT '',
-  `title_style` varchar(40) NOT NULL DEFAULT '',
-  `keywords` varchar(80) NOT NULL DEFAULT '',
-  `description` mediumtext NOT NULL,
+  `title_style` varchar(40) DEFAULT '',
+  `keywords` varchar(80) DEFAULT '',
+  `description` mediumtext,
   `content` mediumtext NOT NULL,
-  `template` varchar(40) NOT NULL DEFAULT '',
-  `thumb` varchar(100) NOT NULL DEFAULT '',
-  `posid` tinyint(2) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `recommend` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `readgroup` varchar(100) NOT NULL DEFAULT '',
-  `readpoint` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `template` varchar(40) DEFAULT '',
+  `thumb` varchar(100) DEFAULT '',
+  `posid` tinyint(2) unsigned DEFAULT '0',
+  `status` tinyint(3) unsigned DEFAULT '1',
+  `recommend` tinyint(1) unsigned DEFAULT '0',
+  `readgroup` varchar(100) DEFAULT '',
+  `readpoint` smallint(5) unsigned DEFAULT '0',
   `listorder` int(10) unsigned NOT NULL DEFAULT '0',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00',
   `url` varchar(150) NOT NULL DEFAULT '',
   `xinghao` varchar(30) NOT NULL DEFAULT '',
   `pics` mediumtext NOT NULL,
   `lang` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `start_at` datetime DEFAULT NULL,
+  `stop_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`id`,`status`,`listorder`),
   KEY `catid` (`id`,`catid`,`status`),
   KEY `lang` (`id`,`status`,`lang`),
   KEY `listorder` (`id`,`catid`,`status`,`listorder`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of products
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for role_user
+-- ----------------------------
+DROP TABLE IF EXISTS `role_user`;
+CREATE TABLE `role_user` (
+  `role_id` mediumint(9) unsigned DEFAULT '0',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
+  KEY `group_id` (`role_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of product
+-- Records of role_user
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for role
+-- Table structure for roles
 -- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT '',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -4469,33 +4489,19 @@ CREATE TABLE `role` (
   `price_y` decimal(8,2) unsigned NOT NULL DEFAULT '0.00',
   `price_m` decimal(8,2) unsigned NOT NULL DEFAULT '0.00',
   `price_d` decimal(8,2) unsigned NOT NULL DEFAULT '0.00',
+  `platform` int(2) NOT NULL COMMENT '0-前台 1-后台 2-前后台',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of role
+-- Records of roles
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '超级管理员', '1', '超级管理员', '0', '0', '1', '1', '1', '1', '1', '1', '0', '0', '0.00', '0.00', '0.00');
-INSERT INTO `role` VALUES ('2', '普通管理员', '1', '普通管理员', '0', '0', '1', '1', '1', '1', '1', '1', '0', '0', '0.00', '0.00', '0.00');
-INSERT INTO `role` VALUES ('3', '注册用户', '1', '注册用户', '0', '0', '1', '0', '1', '1', '1', '0', '0', '0', '0.00', '0.00', '0.00');
-INSERT INTO `role` VALUES ('4', '游客', '1', '游客', '0', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0.00', '0.00', '0.00');
-INSERT INTO `role` VALUES ('5', '邮件认证', '1', '邮件认证', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0.00', '0.00', '0.00');
-
--- ----------------------------
--- Table structure for role_user
--- ----------------------------
-DROP TABLE IF EXISTS `role_user`;
-CREATE TABLE `role_user` (
-  `role_id` mediumint(9) unsigned DEFAULT '0',
-  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
-  KEY `group_id` (`role_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of role_user
--- ----------------------------
+INSERT INTO `roles` VALUES ('1', '超级管理员', '1', '超级管理员', '0', '0', '1', '1', '1', '1', '1', '1', '0', '0', '0.00', '0.00', '0.00', '2');
+INSERT INTO `roles` VALUES ('2', '普通管理员', '1', '普通管理员', '0', '0', '1', '1', '1', '1', '1', '1', '0', '0', '0.00', '0.00', '0.00', '1');
+INSERT INTO `roles` VALUES ('3', '注册用户', '1', '注册用户', '0', '0', '1', '0', '1', '1', '1', '0', '0', '0', '0.00', '0.00', '0.00', '0');
+INSERT INTO `roles` VALUES ('4', '游客', '1', '游客', '0', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0.00', '0.00', '0.00', '0');
+INSERT INTO `roles` VALUES ('5', '邮件认证', '1', '邮件认证', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0.00', '0.00', '0.00', '0');
 
 -- ----------------------------
 -- Table structure for shipping
@@ -4695,33 +4701,26 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `groupid` tinyint(2) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(50) NOT NULL DEFAULT '',
+  `name` varchar(50) DEFAULT NULL,
   `password` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(50) NOT NULL DEFAULT '',
-  `realname` varchar(50) DEFAULT '',
-  `question` varchar(50) DEFAULT '',
-  `answer` varchar(50) DEFAULT '',
-  `sex` tinyint(1) unsigned DEFAULT '0',
-  `tel` varchar(50) DEFAULT '',
-  `mobile` varchar(50) DEFAULT '',
-  `fax` varchar(50) DEFAULT '',
-  `web_url` varchar(100) DEFAULT '',
-  `address` varchar(100) DEFAULT '',
-  `login_count` int(11) unsigned DEFAULT '0',
-  `last_logintime` int(11) unsigned DEFAULT '0',
-  `reg_ip` char(15) DEFAULT '',
   `last_ip` char(15) DEFAULT '',
   `status` tinyint(1) unsigned DEFAULT '0',
-  `amount` decimal(8,2) unsigned NOT NULL DEFAULT '0.00',
-  `point` smallint(5) unsigned DEFAULT '0',
-  `avatar` varchar(120) DEFAULT '',
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `platform` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('2', '0', '111111', '$2y$10$XKymbKmFIo62j/vgLwV0T.jC1nWEyEDTFoxD1gBr6AuhTsHyK/PJi', '111111@qq.com', '', '', '', '0', '', '', '', '', '', '0', '0', '', '', '0', '0.00', '0', '', 'oocH3RGrzUbyT5BCKHLrAFo5Z1ejNj10lS5O0NC7ugM7J0jNdguxlP5jVyZj', '2017-08-25 09:56:19', '2017-08-25 09:56:19');
+INSERT INTO `users` VALUES ('2', '1', '111111', '$2y$10$XKymbKmFIo62j/vgLwV0T.jC1nWEyEDTFoxD1gBr6AuhTsHyK/PJi', '111111@qq.com', '', '1', 'oocH3RGrzUbyT5BCKHLrAFo5Z1ejNj10lS5O0NC7ugM7J0jNdguxlP5jVyZj', '2017-08-25 09:56:19', '2017-08-25 09:56:19', null, '2');
+INSERT INTO `users` VALUES ('3', '1', 'admin', '$2y$10$l449jaJT/7c1YmtCslQTr.R/NAFKnQP3dpbwv0eIxm27rFig0vdBW', '17600200818@163.com', '', '0', null, '2017-09-12 07:28:03', '2017-09-12 07:28:03', null, '2');
+INSERT INTO `users` VALUES ('4', '1', 'test', '$2y$10$dmx8ZYBh9BzwX/3ncWs9ZO16KAyQnH3IiTra6DMPoRhxS8I/vUfii', '111111123123@qq.com', '', '0', null, '2017-09-12 09:11:11', '2017-09-12 09:11:11', null, '1');
+INSERT INTO `users` VALUES ('5', '1', '123123', '$2y$10$NjsBEMXjiDVLNmwYaT4EaeRYWKb4QCdLM.OfUYOk7IRzgoDYbSCk6', '222@qq.com', '', '0', null, '2017-09-12 09:12:40', '2017-09-12 09:12:40', null, '0');
+INSERT INTO `users` VALUES ('6', '1', '123123123@qq.com', '$2y$10$iZ658irZSR6nxNB0fu0PJuoKo0.t0dWgmiV5QZWvGHDMnCXi.xyme', '123123123@qq.com', '', '0', null, '2017-09-12 09:21:45', '2017-09-12 09:21:45', null, '0');
+INSERT INTO `users` VALUES ('7', '1', '2223', '$2y$10$Ijyy6cxa4bYU6qjBEtN1qu6D49L6VNF.LDRL4/7Qn.wlNd6ZKIr1W', '11111221@qq.com', '', '0', null, '2017-09-12 09:23:12', '2017-09-12 09:23:12', null, '0');
+INSERT INTO `users` VALUES ('8', '5', '123123123', '$2y$10$n2tEvZS34P5c3uUN70oygu7SLLp9dY9gl1snTnIEVgGOUlk/3N9x.', '22223@qq.com2222', '', '0', null, '2017-09-12 09:23:53', '2017-09-12 09:23:53', null, '0');
