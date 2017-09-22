@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-09-21 16:21:04
+Date: 2017-09-22 18:22:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3588,10 +3588,10 @@ INSERT INTO `configs` VALUES ('cookie_url', 'cookie路径', '1', '0', '0');
 INSERT INTO `configs` VALUES ('cookie_domain', 'cookie域名', '1', '1', '0');
 
 -- ----------------------------
--- Table structure for download
+-- Table structure for downloads
 -- ----------------------------
-DROP TABLE IF EXISTS `download`;
-CREATE TABLE `download` (
+DROP TABLE IF EXISTS `downloads`;
+CREATE TABLE `downloads` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `userid` int(8) unsigned NOT NULL DEFAULT '0',
@@ -3610,23 +3610,25 @@ CREATE TABLE `download` (
   `readpoint` smallint(5) unsigned NOT NULL DEFAULT '0',
   `listorder` int(10) unsigned NOT NULL DEFAULT '0',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `url` varchar(150) NOT NULL DEFAULT '',
   `file` varchar(80) NOT NULL DEFAULT '',
   `ext` varchar(10) NOT NULL DEFAULT '',
   `size` varchar(10) NOT NULL DEFAULT '',
   `downs` int(10) unsigned NOT NULL DEFAULT '0',
   `lang` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `start_at` datetime DEFAULT NULL,
+  `stop_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`id`,`status`,`listorder`),
   KEY `catid` (`id`,`catid`,`status`),
   KEY `lang` (`id`,`status`,`lang`),
   KEY `listorder` (`id`,`catid`,`status`,`listorder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of download
+-- Records of downloads
 -- ----------------------------
 
 -- ----------------------------
@@ -3936,7 +3938,7 @@ INSERT INTO `menu` VALUES ('7', '0', 'admin.posids.index', 'entypo-gauge', 'menu
 INSERT INTO `menu` VALUES ('39', '2', 'admin.menu.index', 'entypo-gauge', '', '1', '1', '0', '后台管理菜单', '后台管理菜单', '11');
 INSERT INTO `menu` VALUES ('15', '39', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加菜单', '', '0');
 INSERT INTO `menu` VALUES ('50', '2', 'admin.configs.index', 'entypo-gauge', '', '1', '1', '0', '站点配置', '', '0');
-INSERT INTO `menu` VALUES ('22', '3', 'admin.products.index', 'entypo-gauge', '', '1', '1', '0', '产品模型', '', '3');
+INSERT INTO `menu` VALUES ('22', '3', 'admin.pictures.index', 'entypo-gauge', '', '1', '1', '0', '产品模型', '', '3');
 INSERT INTO `menu` VALUES ('8', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '系统参数', '', '0');
 INSERT INTO `menu` VALUES ('32', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '用户中心设置', '', '0');
 INSERT INTO `menu` VALUES ('59', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加系统变量', '', '99');
@@ -3954,8 +3956,8 @@ INSERT INTO `menu` VALUES ('21', '20', 'admin.posids.index', 'entypo-gauge', '',
 INSERT INTO `menu` VALUES ('23', '2', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '推荐位管理', '', '0');
 INSERT INTO `menu` VALUES ('24', '23', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加推荐位', '', '0');
 INSERT INTO `menu` VALUES ('25', '22', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '添加产品', '', '0');
-INSERT INTO `menu` VALUES ('26', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '图片模型', '', '4');
-INSERT INTO `menu` VALUES ('27', '3', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '下载模型', '', '5');
+INSERT INTO `menu` VALUES ('26', '3', 'admin.pictures.index', 'entypo-gauge', '', '1', '1', '0', '图片模型', '', '4');
+INSERT INTO `menu` VALUES ('27', '3', 'admin.downloads.index', 'entypo-gauge', '', '1', '1', '0', '下载模型', '', '5');
 INSERT INTO `menu` VALUES ('28', '2', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '类别管理', '', '6');
 INSERT INTO `menu` VALUES ('29', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '系统邮箱', '', '0');
 INSERT INTO `menu` VALUES ('30', '50', 'admin.posids.index', 'entypo-gauge', '', '1', '1', '0', '附件配置', '', '0');
@@ -4351,10 +4353,10 @@ CREATE TABLE `payment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for picture
+-- Table structure for pictures
 -- ----------------------------
-DROP TABLE IF EXISTS `picture`;
-CREATE TABLE `picture` (
+DROP TABLE IF EXISTS `pictures`;
+CREATE TABLE `pictures` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `userid` int(11) unsigned NOT NULL DEFAULT '0',
@@ -4374,19 +4376,21 @@ CREATE TABLE `picture` (
   `readpoint` smallint(5) unsigned NOT NULL DEFAULT '0',
   `listorder` int(10) unsigned NOT NULL DEFAULT '0',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `create_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `pics` mediumtext NOT NULL,
   `lang` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `start_at` datetime DEFAULT NULL,
+  `stop_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`id`,`status`,`listorder`),
   KEY `catid` (`id`,`catid`,`status`),
   KEY `lang` (`id`,`status`,`lang`),
   KEY `listorder` (`id`,`catid`,`status`,`listorder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of picture
+-- Records of pictures
 -- ----------------------------
 
 -- ----------------------------
