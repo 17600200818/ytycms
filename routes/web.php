@@ -58,4 +58,20 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::patch('/products/{product}', 'ProductsController@update')->name('products.update');
     Route::post('/products/setListOrder', 'ProductsController@setListOrder')->name('products.setListOrder');
     Route::post('/products/delete', 'ProductsController@delete')->name('products.delete');
+
+    Route::get('/pictures', 'PicturesController@index')->name('pictures.index');
+    Route::get('/pictures/create/{catid}', 'PicturesController@create')->name('pictures.create');
+    Route::post('/pictures/store', 'PicturesController@store')->name('pictures.store');
+    Route::get('/pictures/{picture}/edit', 'PicturesController@edit')->name('pictures.edit');
+    Route::patch('/pictures/{picture}', 'PicturesController@update')->name('pictures.update');
+    Route::post('/pictures/setListOrder', 'PicturesController@setListOrder')->name('pictures.setListOrder');
+    Route::post('/pictures/delete', 'PicturesController@delete')->name('pictures.delete');
+
+    Route::get('/downloads', 'DownloadsController@index')->name('downloads.index');
+    Route::get('/downloads/create/{catid}', 'DownloadsController@create')->name('downloads.create');
+    Route::post('/downloads/store', 'DownloadsController@store')->name('downloads.store');
+    Route::get('/downloads/{download}/edit', 'DownloadsController@edit')->name('downloads.edit');
+    Route::patch('/downloads/{download}', 'DownloadsController@update')->name('downloads.update');
+    Route::post('/downloads/setListOrder', 'DownloadsController@setListOrder')->name('downloads.setListOrder');
+    Route::post('/downloads/delete', 'DownloadsController@delete')->name('downloads.delete');
 });

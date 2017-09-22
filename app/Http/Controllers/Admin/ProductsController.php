@@ -256,9 +256,9 @@ class ProductsController extends Controller
             'id' => 'required'
         ]);
 
-        $aproduct = DB::table('products')->where('id', $request->id)->delete();
+        $product = DB::table('products')->where('id', $request->id)->delete();
 
-        if ($aproduct) {
+        if ($product) {
             $result = ['status' => 0, 'msg' => '修改成功'];
         }else{
             $result = ['status' => 1];
