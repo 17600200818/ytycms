@@ -74,4 +74,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::patch('/downloads/{download}', 'DownloadsController@update')->name('downloads.update');
     Route::post('/downloads/setListOrder', 'DownloadsController@setListOrder')->name('downloads.setListOrder');
     Route::post('/downloads/delete', 'DownloadsController@delete')->name('downloads.delete');
+
+    Route::get('/feedbacks', 'FeedbacksController@index')->name('feedbacks.index');
+    Route::get('/feedbacks/{feedback}/edit', 'FeedbacksController@edit')->name('feedbacks.edit');
+    Route::patch('/feedbacks/{feedback}', 'FeedbacksController@update')->name('feedbacks.update');
+    Route::post('/feedbacks/setListOrder', 'FeedbacksController@setListOrder')->name('feedbacks.setListOrder');
+    Route::post('/feedbacks/delete', 'FeedbacksController@delete')->name('feedbacks.delete');
 });
