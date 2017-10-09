@@ -80,4 +80,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::patch('/feedbacks/{feedback}', 'FeedbacksController@update')->name('feedbacks.update');
     Route::post('/feedbacks/setListOrder', 'FeedbacksController@setListOrder')->name('feedbacks.setListOrder');
     Route::post('/feedbacks/delete', 'FeedbacksController@delete')->name('feedbacks.delete');
+
+    Route::get('/guestbooks', 'GuestbooksController@index')->name('guestbooks.index');
+    Route::post('/guestbooks/setListOrder', 'GuestbooksController@setListOrder')->name('guestbooks.setListOrder');
+    Route::get('/guestbooks/{guestbook}/edit', 'GuestbooksController@edit')->name('guestbooks.edit');
+    Route::patch('/guestbooks/{guestbook}', 'GuestbooksController@update')->name('guestbooks.update');
+    Route::post('/guestbooks/delete', 'GuestbooksController@delete')->name('guestbooks.delete');
+
+    Route::get('/modules', 'ModulesController@index')->name('modules.index');
+    Route::get('/modules/{name}/colums', 'ModulesController@colums')->name('modules.edit');
+
 });
