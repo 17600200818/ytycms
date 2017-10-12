@@ -87,7 +87,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::patch('/guestbooks/{guestbook}', 'GuestbooksController@update')->name('guestbooks.update');
     Route::post('/guestbooks/delete', 'GuestbooksController@delete')->name('guestbooks.delete');
 
-    Route::get('/modules', 'ModulesController@index')->name('modules.index');
-    Route::get('/modules/{name}/colums', 'ModulesController@colums')->name('modules.edit');
+    Route::get('/modules/{type}', 'ModulesController@index')->name('modules.index');
+    Route::get('/modules/{name}/colums', 'ModulesController@colums')->name('modules.colums');
+    Route::get('/modules/{module}/edit', 'ModulesController@edit')->name('modules.edit');
+    Route::patch('/modules/{module}', 'ModulesController@update')->name('modules.update');
+    Route::post('/modules/setStatus', 'ModulesController@setStatus')->name('modules.setStatus');
+    Route::post('/modules/delete', 'ModulesController@delete')->name('modules.delete');
 
+    Route::get('/links', 'LinksControllerController@index')->name('links.index');
 });

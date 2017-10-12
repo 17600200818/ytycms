@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-    protected $fillable = ['status'];
+    protected $fillable = ['status', 'title', 'name', 'listfields', 'issearch', 'issystem', 'postgroup', 'description'];
 }
