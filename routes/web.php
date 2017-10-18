@@ -94,5 +94,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     Route::post('/modules/setStatus', 'ModulesController@setStatus')->name('modules.setStatus');
     Route::post('/modules/delete', 'ModulesController@delete')->name('modules.delete');
 
-    Route::get('/links', 'LinksControllerController@index')->name('links.index');
+    Route::get('/links', 'LinksController@index')->name('links.index');
+    Route::post('/links/setListOrder', 'LinksController@setListOrder')->name('links.setListOrder');
+    Route::get('/links/{link}/edit', 'LinksController@edit')->name('links.edit');
+    Route::get('/links/create', 'LinksController@create')->name('links.create');
+    Route::post('/links/store', 'LinksController@store')->name('links.store');
+    Route::patch('/links/{link}', 'LinksController@update')->name('links.update');
+    Route::post('/links/delete', 'LinksController@delete')->name('links.delete');
+
+    Route::get('/kefu', 'KefuController@index')->name('kefu.index');
+    Route::get('/kefu/create', 'KefuController@create')->name('kefu.create');
 });

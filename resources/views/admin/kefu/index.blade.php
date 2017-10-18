@@ -6,9 +6,10 @@
             <th>排序</th>
             <th>ID</th>
             <th>名称</th>
-            <th>LOGO</th>
-            <th>发布时间</th>
-            <th>操作</th>
+            <th>TYPE</th>
+            <th>SKIN</th>
+            <th>CODE</th>
+            <th>管理操作</th>
         </tr>
         </thead>
 
@@ -17,9 +18,9 @@
             <td><input type="text" v-model="v.listorder" @change="setListOrder(key)"></td>
             <td>@{{ v.id }}</td>
             <td>@{{ v.name }}</td>
-            <td v-if=" v.logo != '/storage' "><img :src="v.logo" style="height: 20px"></td>
-            <td v-else></td>
-            <td>@{{ v.create_at }}</td>
+            <td>@{{ v.type }}</td>
+            <td>@{{ v.skin }}</td>
+            <td>@{{ v.code }}</td>
             <td>
                 <a :href="'/admin/links/'+v.id+'/edit'" class="btn btn-default btn-sm btn-icon icon-left">
                     <i class="entypo-pencil"></i>
@@ -35,9 +36,9 @@
         </tbody>
 
     </table>
-    <a href="{{ route('admin.links.create') }}" class="btn btn-primary">
+    <a href="{{ route('admin.kefu.create') }}" class="btn btn-primary">
         <i class="entypo-plus"></i>
-        添加链接
+        添加客服
     </a>
 @stop
 @section('script')
@@ -53,8 +54,9 @@
                         'listorder': '{{ $v["listorder"] }}',
                         'id': '{{ $v["id"] }}',
                         'name': '{{ $v["name"] }}',
-                        'logo': '/storage'+'{{ $v["logo"] }}',
-                        'create_at': '{{ $v["create_at"] }}',
+                        'type': '{{ $v["type"] }}',
+                        'skin': '{{ $v["skin"] }}',
+                        'code': '{{ $v["code"] }}',
                     },
                     @endforeach
                 ]
